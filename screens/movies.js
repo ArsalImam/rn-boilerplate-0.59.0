@@ -3,18 +3,18 @@ import { Container, Content, List, ListItem, Text, Spinner, Fab, Icon } from 'na
 
 import MoviesProvider from '../providers/movies'
 
-export default (props)=>{
+export default (props) => {
 
   const [isLoading, setIsLoading] = MoviesProvider.useGlobal('isLoading')
   const [movies, setMovies] = MoviesProvider.useGlobal('movies')
 
-  useEffect(() => {    
-    
+  useEffect(() => {
+
     //simulating loading
     setIsLoading(true)
 
-    setTimeout(()=> {
-      setMovies([    
+    setTimeout(() => {
+      setMovies([
         {
           id: 1,
           title: "Boboiboy Movie 2"
@@ -23,43 +23,43 @@ export default (props)=>{
           id: 2,
           title: "Weathering"
         },
-      ]) 
+      ])
       setIsLoading(false)
     }, 2000)
-    
+
   }, [])
 
   return (
     <Container>
       <Content>
-        {isLoading? (
-          <Spinner/>
-        ): (
-          <List>
-            {movies.map(movie=>(              
-              <ListItem 
-                key={movie.id} 
-                onPress={()=>{
-                  props.navigation.navigate('MovieDetail', {
-                    movie
-                  })
-                }}
-              > 
-                <Text style={{fontSize: 50}}>
-                  {movie.title} 
-                </Text>
-              </ListItem>
-            ))}             
-          </List> 
-        )}     
+        {isLoading ? (
+          <Spinner />
+        ) : (
+            <List>
+              {movies.map(movie => (
+                <ListItem
+                  key={movie.id}
+                  onPress={() => {
+                    props.navigation.navigate('MovieDetail', {
+                      movie
+                    })
+                  }}
+                >
+                  <Text style={{ fontSize: 50 }}>
+                    {movie.title}
+                  </Text>
+                </ListItem>
+              ))}
+            </List>
+          )}
       </Content>
       <Fab
         style={{ backgroundColor: '#5067FF' }}
         position="bottomRight"
         onPress={() => props.navigation.navigate('MovieAdd')}
       >
-        <Icon name="add" />        
+        <Icon name="add" />
       </Fab>
-    </Container>      
+    </Container>
   )
 }
